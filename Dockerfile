@@ -1,7 +1,5 @@
 # Docker image that builds haproxy from source + openssl3 from quictls
 
-FROM gcc:12 as builder
-
 FROM gcc:12 as openssl-quic-builder
 
 ARG OPENSSL_URL=https://github.com/quictls/openssl/archive/refs/tags/openssl-3.0.7+quic1.tar.gz
@@ -33,7 +31,7 @@ RUN \
     cd / && \
     rm -rf /tmp/openssl
 
-FROM builder as haproxy-builder
+FROM gcc:12 as haproxy-builder
 
 ARG HAPROXY_URL=http://www.haproxy.org/download/2.7/src/haproxy-2.7.1.tar.gz
 ARG HAPROXY_SHA1SUM=d803bac38fb63213f52c1a74c30453c4f2ec58fd
@@ -112,6 +110,7 @@ RUN groupadd -r haproxy && \
 
 # add entrypoint
 COPY ./scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 # add errors files
 COPY ./errors /usr/local/etc/haproxy/errors
 
