@@ -15,11 +15,12 @@ ARG OPENSSL_OPTS="enable-tls1_3 \
     -DAESNI_ASM -DVPAES_ASM -DGHASH_ASM -DECP_NISTZ256_ASM -DX25519_ASM \
     -DX448_ASM -DPOLY1305_ASM -DNDEBUG -Wdate-time -D_FORTIFY_SOURCE=2 \
     "
+
 RUN \
     mkdir -p /tmp/openssl && \
     cd /tmp/openssl && \
-    wget -qO- $OPENSSL_URL > openssl.tar.gz && \
-    echo "$OPENSSL_SHA1SUM openssl.tar.gz" | sha1sum -c - && \
+    wget -O- "$OPENSSL_URL" > openssl.tar.gz && \
+    echo "$OPENSSL_SHA1SUM  openssl.tar.gz" | tee /dev/stderr | sha1sum -c - && \
     tar -xzf openssl.tar.gz && \
     cd openssl-* && \
     ./config --libdir=lib --prefix=/opt/quictls $OPENSSL_OPTS && \
@@ -67,8 +68,8 @@ RUN \
 RUN \
     mkdir -p /tmp/haproxy && \
     cd /tmp/haproxy && \
-    wget -qO- $HAPROXY_URL > haproxy.tar.gz && \
-    echo "$HAPROXY_SHA1SUM haproxy.tar.gz" | sha1sum -c - && \
+    wget -O- $HAPROXY_URL > haproxy.tar.gz && \
+    echo "$HAPROXY_SHA1SUM  haproxy.tar.gz" | sha1sum -c - && \
     tar -xzf haproxy.tar.gz && \
     cd haproxy-* && \
     make -j $(nproc) $HAPROXY_OPTS CFLAGS="$HAPROXY_CFLAGS" LDFLAGS="$HAPROXY_LDFLAGS" SSL_INC=/opt/quictls/include SSL_LIB=/opt/quictls/lib && \
