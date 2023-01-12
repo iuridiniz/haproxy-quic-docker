@@ -5,7 +5,7 @@
 
 Almost copied from https://hub.docker.com/_/haproxy (DOCKER OFFICIAL IMAGE).
 
-# Differences from official image (haproxy:2.7)
+# Differences from official image (`haproxy:2.7`)
 * Patched OpenSSL 3.X (QUIC APIs) from https://github.com/quictls/openssl (instead of openssl 1.x.y)
 * HAProxy with:
    * QUIC (HTTP/3) enabled
