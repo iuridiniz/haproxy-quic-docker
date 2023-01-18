@@ -6,10 +6,10 @@ SELF=`readlink -f "$0"`
 BASEDIR=$( (cd -P "`dirname "$SELF"`/.." && pwd) )
 
 ENVS_DIR=${ENVS_DIR:-"$BASEDIR/envs"}
-VERSIONS=${VERSIONS:-$(ls -1 "$ENVS_DIR/latest" "$ENVS_DIR"/[1-9]*)}
+ENVIRONMENTS=${ENVIRONMENTS:-$(ls -1 "$ENVS_DIR/latest" "$ENVS_DIR"/[1-9]*)}
 IMAGE_NAME=${IMAGE_NAME:-"iuridiniz/haproxy"}
 
-for VERSION in $VERSIONS; do
+for VERSION in $ENVIRONMENTS; do
     VERSION=${VERSION%/}
     VERSION=${VERSION##*/}
     if [ ! -f "$ENVS_DIR/$VERSION" ]; then

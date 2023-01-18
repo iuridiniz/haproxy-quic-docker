@@ -11,7 +11,7 @@ Almost copied from https://hub.docker.com/_/haproxy (DOCKER OFFICIAL IMAGE).
    * QUIC (HTTP/3) enabled
    * ZLIB enabled
 * Compiled with gcc-12 (instead of gcc-10)
-  * `-O3` otimization
+  * `-O3` optimization
 
 ---------------
 # Quick reference 

@@ -84,6 +84,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpcre2-8-0 \
     libpcre2-posix2 \
     liblua5.3-0 \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=openssl-quic-builder /opt/quictls/lib /opt/quictls/lib
@@ -110,9 +111,10 @@ RUN groupadd -r haproxy && \
 
 # add entrypoint
 COPY ./scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
 # add errors files
 COPY ./errors /usr/local/etc/haproxy/errors
+RUN chmod 644 /usr/local/etc/haproxy/errors/*
 
 USER haproxy
 RUN haproxy -vv
