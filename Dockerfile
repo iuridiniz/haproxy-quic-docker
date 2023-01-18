@@ -14,12 +14,13 @@ ARG OPENSSL_OPTS="enable-tls1_3 \
     -DX448_ASM -DPOLY1305_ASM -DNDEBUG -Wdate-time -D_FORTIFY_SOURCE=2 \
     "
 
-RUN \
-    mkdir -p /tmp/openssl && \
+# cache wget
+RUN --mount=type=cache,target=/cache \
+    mkdir -p /tmp/openssl /cache && \
     cd /tmp/openssl && \
-    wget -O- "$OPENSSL_URL" > openssl.tar.gz && \
-    echo "$OPENSSL_SHA1SUM  openssl.tar.gz" | tee /dev/stderr | sha1sum -c - && \
-    tar -xzf openssl.tar.gz && \
+    wget -c $OPENSSL_URL -O /cache/openssl-$OPENSSL_SHA1SUM.tar.gz && \
+    echo "$OPENSSL_SHA1SUM  /cache/openssl-$OPENSSL_SHA1SUM.tar.gz" | sha1sum -c - || (rm -f openssl-$OPENSSL_SHA1SUM.tar.gz && exit 1) && \
+    tar -xzf /cache/openssl-$OPENSSL_SHA1SUM.tar.gz && \
     cd openssl-* && \
     ./config --libdir=lib --prefix=/opt/quictls $OPENSSL_OPTS && \
     make -j $(nproc) && \
@@ -63,19 +64,19 @@ RUN \
     ldconfig && \
     /opt/quictls/bin/openssl version -a
 
-RUN \
-    mkdir -p /tmp/haproxy && \
+RUN --mount=type=cache,target=/cache \
+    mkdir -p /tmp/haproxy /cache && \
     cd /tmp/haproxy && \
-    wget -O- $HAPROXY_URL > haproxy.tar.gz && \
-    echo "$HAPROXY_SHA1SUM  haproxy.tar.gz" | sha1sum -c - && \
-    tar -xzf haproxy.tar.gz && \
+    wget -c $HAPROXY_URL -O /cache/haproxy-$HAPROXY_SHA1SUM.tar.gz && \
+    echo "$HAPROXY_SHA1SUM  /cache/haproxy-$HAPROXY_SHA1SUM.tar.gz" | sha1sum -c - || (rm -f haproxy-$HAPROXY_SHA1SUM.tar.gz && exit 1) && \
+    tar -xzf /cache/haproxy-$HAPROXY_SHA1SUM.tar.gz && \
     cd haproxy-* && \
-    make -j $(nproc) $HAPROXY_OPTS CFLAGS="$HAPROXY_CFLAGS" LDFLAGS="$HAPROXY_LDFLAGS" SSL_INC=/opt/quictls/include SSL_LIB=/opt/quictls/lib && \
-    make install-bin -j $(nproc) && \
+    make -j $(nproc) $HAPROXY_OPTS CFLAGS="$HAPROXY_CFLAGS" LDFLAGS="$HAPROXY_LDFLAGS" SSL_INC=/opt/quictls/include SSL_LIB=/opt/quictls/lib all admin/halog/halog && \
+    make -j $(nproc) install-bin  && \
+    cp admin/halog/halog /usr/local/sbin/halog && \
     /usr/local/sbin/haproxy -vv && \
     cd / && \
     rm -rf /tmp/haproxy
-
 
 FROM debian:11-slim as haproxy
 
@@ -89,6 +90,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=openssl-quic-builder /opt/quictls/lib /opt/quictls/lib
 COPY --from=haproxy-builder /usr/local/sbin/haproxy /usr/local/sbin/haproxy
+COPY --from=haproxy-builder /usr/local/sbin/halog /usr/local/sbin/halog
 
 # make quicktls available
 RUN \

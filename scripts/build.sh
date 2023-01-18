@@ -30,7 +30,9 @@ for VERSION in $ENVIRONMENTS; do
     fi
     (
         set -x
-        docker build \
+        docker buildx build \
+            --progress=plain \
+            --load \
             -t "$IMAGE_NAME:$VERSION" \
             --build-arg HAPROXY_URL="$HAPROXY_URL" \
             --build-arg HAPROXY_SHA1SUM="$HAPROXY_SHA1SUM" \
