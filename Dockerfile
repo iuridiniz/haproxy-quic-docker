@@ -34,8 +34,8 @@ RUN --mount=type=cache,target=/cache \
 
 FROM gcc:12 as haproxy-builder
 
-ARG HAPROXY_URL=http://www.haproxy.org/download/2.7/src/haproxy-2.7.1.tar.gz
-ARG HAPROXY_SHA1SUM=d803bac38fb63213f52c1a74c30453c4f2ec58fd
+ARG HAPROXY_URL=http://www.haproxy.org/download/2.7/src/haproxy-2.7.2.tar.gz
+ARG HAPROXY_SHA1SUM=4f649d89eb7778defff8d5d1d52ffe8ceb56c8fa
 ARG HAPROXY_CFLAGS="-O3 -g -Wall -Wextra -Wundef -Wdeclaration-after-statement -Wfatal-errors -Wtype-limits -Wshift-negative-value -Wshift-overflow=2 -Wduplicated-cond -Wnull-dereference -fwrapv -Wno-address-of-packed-member -Wno-unused-label -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wno-missing-field-initializers -Wno-cast-function-type -Wno-string-plus-int -Wno-atomic-alignment"
 ARG HAPROXY_LDFLAGS=""
 ARG HAPROXY_OPTS="TARGET=linux-glibc \
