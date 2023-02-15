@@ -3,8 +3,8 @@
 FROM gcc:12 as openssl-quic-builder
 
 # ignore these default arguments values, they are overridden by the build command with updated values.
-ARG OPENSSL_URL=https://github.com/quictls/openssl/archive/refs/tags/openssl-3.0.7+quic1.tar.gz
-ARG OPENSSL_SHA1SUM=c321a5aa2bfde46c467c94e04b9ef6fc5233f855
+ARG OPENSSL_URL=https://github.com/quictls/openssl/archive/refs/tags/openssl-3.0.8-quic1.tar.gz
+ARG OPENSSL_SHA1SUM=6503159d79e043ae460730cbb471de5794344e6b
 ARG OPENSSL_OPTS="enable-tls1_3 \
     -g -O3 -fstack-protector-strong -Wformat -Werror=format-security \
     -DOPENSSL_TLS_SECURITY_LEVEL=2 -DOPENSSL_USE_NODELETE -DL_ENDIAN \
@@ -36,8 +36,8 @@ RUN --mount=type=cache,target=/cache \
 FROM gcc:12 as haproxy-builder
 
 # ignore these default arguments values, they are overridden by the build command with updated values.
-ARG HAPROXY_URL=http://www.haproxy.org/download/2.7/src/haproxy-2.7.2.tar.gz
-ARG HAPROXY_SHA1SUM=4f649d89eb7778defff8d5d1d52ffe8ceb56c8fa
+ARG HAPROXY_URL=http://www.haproxy.org/download/2.7/src/haproxy-2.7.3.tar.gz
+ARG HAPROXY_SHA1SUM=b9b8f2f132ab87c2671f4c214a527af1a3821b2e
 ARG HAPROXY_CFLAGS="-O3 -g -Wall -Wextra -Wundef -Wdeclaration-after-statement -Wfatal-errors -Wtype-limits -Wshift-negative-value -Wshift-overflow=2 -Wduplicated-cond -Wnull-dereference -fwrapv -Wno-address-of-packed-member -Wno-unused-label -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wno-missing-field-initializers -Wno-cast-function-type -Wno-string-plus-int -Wno-atomic-alignment"
 ARG HAPROXY_LDFLAGS=""
 ARG HAPROXY_OPTS="TARGET=linux-glibc \
