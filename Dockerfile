@@ -20,7 +20,7 @@ RUN --mount=type=cache,target=/cache \
     mkdir -p /tmp/openssl /cache && \
     cd /tmp/openssl && \
     wget -c $OPENSSL_URL -O /cache/openssl-$OPENSSL_SHA1SUM.tar.gz && \
-    echo "$OPENSSL_SHA1SUM  /cache/openssl-$OPENSSL_SHA1SUM.tar.gz" | sha1sum -c - || (rm -f openssl-$OPENSSL_SHA1SUM.tar.gz && exit 1) && \
+    echo "$OPENSSL_SHA1SUM  /cache/openssl-$OPENSSL_SHA1SUM.tar.gz" | sha1sum -c - || (rm -f /cache/openssl-$OPENSSL_SHA1SUM.tar.gz && exit 1) && \
     tar -xzf /cache/openssl-$OPENSSL_SHA1SUM.tar.gz && \
     cd openssl-* && \
     ./config --libdir=lib --prefix=/opt/quictls $OPENSSL_OPTS && \
@@ -70,7 +70,7 @@ RUN --mount=type=cache,target=/cache \
     mkdir -p /tmp/haproxy /cache && \
     cd /tmp/haproxy && \
     wget -c $HAPROXY_URL -O /cache/haproxy-$HAPROXY_SHA1SUM.tar.gz && \
-    echo "$HAPROXY_SHA1SUM  /cache/haproxy-$HAPROXY_SHA1SUM.tar.gz" | sha1sum -c - || (rm -f haproxy-$HAPROXY_SHA1SUM.tar.gz && exit 1) && \
+    echo "$HAPROXY_SHA1SUM  /cache/haproxy-$HAPROXY_SHA1SUM.tar.gz" | sha1sum -c - || (rm -f /cache/haproxy-$HAPROXY_SHA1SUM.tar.gz && exit 1) && \
     tar -xzf /cache/haproxy-$HAPROXY_SHA1SUM.tar.gz && \
     cd haproxy-* && \
     make -j $(nproc) $HAPROXY_OPTS CFLAGS="$HAPROXY_CFLAGS" LDFLAGS="$HAPROXY_LDFLAGS" SSL_INC=/opt/quictls/include SSL_LIB=/opt/quictls/lib all admin/halog/halog && \
