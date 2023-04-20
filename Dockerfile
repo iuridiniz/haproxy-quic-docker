@@ -36,8 +36,8 @@ RUN --mount=type=cache,target=/cache \
 FROM gcc:12 as haproxy-builder
 
 # ignore these default arguments values, they are overridden by the build command with updated values.
-ARG HAPROXY_URL=http://www.haproxy.org/download/2.7/src/haproxy-2.7.3.tar.gz
-ARG HAPROXY_SHA1SUM=b9b8f2f132ab87c2671f4c214a527af1a3821b2e
+ARG HAPROXY_URL=http://www.haproxy.org/download/2.7/src/haproxy-2.7.6.tar.gz
+ARG HAPROXY_SHA1SUM=31a3701665b62a7eb737ffd8aaec0b3b55324402
 ARG HAPROXY_CFLAGS="-O3 -g -Wall -Wextra -Wundef -Wdeclaration-after-statement -Wfatal-errors -Wtype-limits -Wshift-negative-value -Wshift-overflow=2 -Wduplicated-cond -Wnull-dereference -fwrapv -Wno-address-of-packed-member -Wno-unused-label -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wno-missing-field-initializers -Wno-cast-function-type -Wno-string-plus-int -Wno-atomic-alignment"
 ARG HAPROXY_LDFLAGS=""
 ARG HAPROXY_OPTS="TARGET=linux-glibc \
