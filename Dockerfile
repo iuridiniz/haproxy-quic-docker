@@ -120,6 +120,10 @@ RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
 COPY ./errors /usr/local/etc/haproxy/errors
 RUN chmod 644 /usr/local/etc/haproxy/errors/*
 
+# Save some space by removing layers that are not needed anymore.
+FROM scratch
+COPY --from=haproxy / /
+
 USER haproxy
 RUN haproxy -vv
 
