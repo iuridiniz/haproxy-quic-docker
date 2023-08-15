@@ -51,7 +51,7 @@ ARG HAPROXY_OPTS="TARGET=linux-glibc \
     USE_EPOOL=1 \
     USE_THREAD=1 \
     USE_NS=1 \
-    USE_SLZ= USE_ZLIB=1 \
+    USE_SLZ=1 USE_ZLIB= \
     "
 
 # install dependencies (lua, pcre2)

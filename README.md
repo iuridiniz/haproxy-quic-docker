@@ -9,7 +9,6 @@ Almost copied from https://hub.docker.com/_/haproxy (DOCKER OFFICIAL IMAGE).
 * Patched OpenSSL 3.X (QUIC APIs) from https://github.com/quictls/openssl (instead of openssl 1.x.y)
 * HAProxy with:
    * QUIC (HTTP/3) enabled
-   * ZLIB enabled
 * Compiled with gcc-12 (instead of gcc-10)
   * `-O3` optimization
 
@@ -38,10 +37,10 @@ Build options :
   CPU     = generic
   CC      = cc
   CFLAGS  = -O3 -g -Wall -Wextra -Wundef -Wdeclaration-after-statement -Wfatal-errors -Wtype-limits -Wshift-negative-value -Wshift-overflow=2 -Wduplicated-cond -Wnull-dereference -fwrapv -Wno-address-of-packed-member -Wno-unused-label -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wno-missing-field-initializers -Wno-cast-function-type -Wno-string-plus-int -Wno-atomic-alignment
-  OPTIONS = USE_THREAD=1 USE_LIBCRYPT=1 USE_GETADDRINFO=1 USE_OPENSSL=1 USE_LUA=1 USE_ZLIB=1 USE_SLZ= USE_NS=1 USE_QUIC=1 USE_PROMEX=1 USE_PCRE= USE_PCRE_JIT= USE_PCRE2=1 USE_PCRE2_JIT=1
+  OPTIONS = USE_THREAD=1 USE_LIBCRYPT=1 USE_GETADDRINFO=1 USE_OPENSSL=1 USE_LUA=1 USE_ZLIB= USE_SLZ=1 USE_NS=1 USE_QUIC=1 USE_PROMEX=1 USE_PCRE= USE_PCRE_JIT= USE_PCRE2=1 USE_PCRE2_JIT=1
   DEBUG   = -DDEBUG_STRICT -DDEBUG_MEMORY_POOLS
 
-Feature list : -51DEGREES +ACCEPT4 +BACKTRACE -CLOSEFROM +CPU_AFFINITY +CRYPT_H -DEVICEATLAS +DL -ENGINE +EPOLL -EVPORTS +GETADDRINFO -KQUEUE -LIBATOMIC +LIBCRYPT +LINUX_SPLICE +LINUX_TPROXY +LUA +MATH -MEMORY_PROFILING +NETFILTER +NS -OBSOLETE_LINKER +OPENSSL -OPENSSL_WOLFSSL -OT -PCRE +PCRE2 +PCRE2_JIT -PCRE_JIT +POLL +PRCTL -PROCCTL +PROMEX -PTHREAD_EMULATION +QUIC +RT +SHM_OPEN -SLZ +SSL -STATIC_PCRE -STATIC_PCRE2 -SYSTEMD +TFO +THREAD +THREAD_DUMP +TPROXY -WURFL +ZLIB
+Feature list : -51DEGREES +ACCEPT4 +BACKTRACE -CLOSEFROM +CPU_AFFINITY +CRYPT_H -DEVICEATLAS +DL -ENGINE +EPOLL -EVPORTS +GETADDRINFO -KQUEUE -LIBATOMIC +LIBCRYPT +LINUX_SPLICE +LINUX_TPROXY +LUA +MATH -MEMORY_PROFILING +NETFILTER +NS -OBSOLETE_LINKER +OPENSSL -OPENSSL_WOLFSSL -OT -PCRE +PCRE2 +PCRE2_JIT -PCRE_JIT +POLL +PRCTL -PROCCTL +PROMEX -PTHREAD_EMULATION +QUIC +RT +SHM_OPEN +SLZ +SSL -STATIC_PCRE -STATIC_PCRE2 -SYSTEMD +TFO +THREAD +THREAD_DUMP +TPROXY -WURFL -ZLIB
 
 Default settings :
   bufsize = 16384, maxrewrite = 1024, maxpollevents = 200
@@ -56,8 +55,7 @@ OpenSSL providers loaded : default
 Built with Lua version : Lua 5.3.6
 Built with the Prometheus exporter as a service
 Built with network namespace support.
-Built with zlib version : 1.2.13
-Running on zlib version : 1.2.13
+Built with libslz for stateless compression.
 Compression algorithms supported : identity("identity"), deflate("deflate"), raw-deflate("deflate"), gzip("gzip")
 Built with transparent proxy support using: IP_TRANSPARENT IPV6_TRANSPARENT IP_FREEBIND
 Built with PCRE2 version : 10.42 2022-12-11
