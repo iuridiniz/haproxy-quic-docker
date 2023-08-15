@@ -5,7 +5,7 @@
 
 Almost copied from https://hub.docker.com/_/haproxy (DOCKER OFFICIAL IMAGE).
 
-# Differences from official image (`haproxy:2.7`)
+# Differences from official image (`haproxy:2.8`)
 * Patched OpenSSL 3.X (QUIC APIs) from https://github.com/quictls/openssl (instead of openssl 1.x.y)
 * HAProxy with:
    * QUIC (HTTP/3) enabled
@@ -27,44 +27,43 @@ Almost copied from https://hub.docker.com/_/haproxy (DOCKER OFFICIAL IMAGE).
 ## `haproxy -vv`
 
 ```
-docker run --rm -it iuridiniz/haproxy:2.7.3 -vv
+docker run --rm -it iuridiniz/haproxy:2.8.2 -vv
 
-HAProxy version 2.7.3-1065b10 2023/02/14 - https://haproxy.org/
-Status: stable branch - will stop receiving fixes around Q1 2024.
-Known bugs: http://www.haproxy.org/bugs/bugs-2.7.3.html
-Running on: Linux 5.15.0-60-generic #66-Ubuntu SMP Fri Jan 20 14:29:49 UTC 2023 x86_64
+HAProxy version 2.8.2-61a0f57 2023/08/09 - https://haproxy.org/
+Status: long-term supported branch - will stop receiving fixes around Q2 2028.
+Known bugs: http://www.haproxy.org/bugs/bugs-2.8.2.html
+Running on: Linux 5.15.0-78-generic #85-Ubuntu SMP Fri Jul 7 15:25:09 UTC 2023 x86_64
 Build options :
   TARGET  = linux-glibc
   CPU     = generic
   CC      = cc
   CFLAGS  = -O3 -g -Wall -Wextra -Wundef -Wdeclaration-after-statement -Wfatal-errors -Wtype-limits -Wshift-negative-value -Wshift-overflow=2 -Wduplicated-cond -Wnull-dereference -fwrapv -Wno-address-of-packed-member -Wno-unused-label -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wno-missing-field-initializers -Wno-cast-function-type -Wno-string-plus-int -Wno-atomic-alignment
-  OPTIONS = USE_PCRE= USE_PCRE_JIT= USE_PCRE2=1 USE_PCRE2_JIT=1 USE_THREAD=1 USE_LIBCRYPT=1 USE_GETADDRINFO=1 USE_OPENSSL=1 USE_LUA=1 USE_ZLIB=1 USE_SLZ= USE_NS=1 USE_QUIC=1 USE_PROMEX=1
+  OPTIONS = USE_THREAD=1 USE_LIBCRYPT=1 USE_GETADDRINFO=1 USE_OPENSSL=1 USE_LUA=1 USE_ZLIB=1 USE_SLZ= USE_NS=1 USE_QUIC=1 USE_PROMEX=1 USE_PCRE= USE_PCRE_JIT= USE_PCRE2=1 USE_PCRE2_JIT=1
   DEBUG   = -DDEBUG_STRICT -DDEBUG_MEMORY_POOLS
 
-Feature list : -51DEGREES +ACCEPT4 +BACKTRACE -CLOSEFROM +CPU_AFFINITY +CRYPT_H -DEVICEATLAS +DL -ENGINE +EPOLL -EVPORTS +GETADDRINFO -KQUEUE +LIBCRYPT +LINUX_SPLICE +LINUX_TPROXY +LUA -MEMORY_PROFILING +NETFILTER +NS -OBSOLETE_LINKER +OPENSSL -OPENSSL_WOLFSSL -OT -PCRE +PCRE2 +PCRE2_JIT -PCRE_JIT +POLL +PRCTL -PROCCTL +PROMEX -PTHREAD_EMULATION +QUIC +RT +SHM_OPEN -SLZ -STATIC_PCRE -STATIC_PCRE2 -SYSTEMD +TFO +THREAD +THREAD_DUMP +TPROXY -WURFL +ZLIB
+Feature list : -51DEGREES +ACCEPT4 +BACKTRACE -CLOSEFROM +CPU_AFFINITY +CRYPT_H -DEVICEATLAS +DL -ENGINE +EPOLL -EVPORTS +GETADDRINFO -KQUEUE -LIBATOMIC +LIBCRYPT +LINUX_SPLICE +LINUX_TPROXY +LUA +MATH -MEMORY_PROFILING +NETFILTER +NS -OBSOLETE_LINKER +OPENSSL -OPENSSL_WOLFSSL -OT -PCRE +PCRE2 +PCRE2_JIT -PCRE_JIT +POLL +PRCTL -PROCCTL +PROMEX -PTHREAD_EMULATION +QUIC +RT +SHM_OPEN -SLZ +SSL -STATIC_PCRE -STATIC_PCRE2 -SYSTEMD +TFO +THREAD +THREAD_DUMP +TPROXY -WURFL +ZLIB
 
 Default settings :
   bufsize = 16384, maxrewrite = 1024, maxpollevents = 200
 
 Built with multi-threading support (MAX_TGROUPS=16, MAX_THREADS=256, default=16).
-Built with OpenSSL version : OpenSSL 3.0.8+quic 7 Feb 2023
-Running on OpenSSL version : OpenSSL 3.0.8+quic 7 Feb 2023
+Built with OpenSSL version : OpenSSL 3.0.10+quic 1 Aug 2023
+Running on OpenSSL version : OpenSSL 3.0.10+quic 1 Aug 2023
 OpenSSL library supports TLS extensions : yes
 OpenSSL library supports SNI : yes
 OpenSSL library supports : TLSv1.0 TLSv1.1 TLSv1.2 TLSv1.3
 OpenSSL providers loaded : default
-Built with Lua version : Lua 5.3.3
+Built with Lua version : Lua 5.3.6
 Built with the Prometheus exporter as a service
 Built with network namespace support.
-Support for malloc_trim() is enabled.
-Built with zlib version : 1.2.11
-Running on zlib version : 1.2.11
+Built with zlib version : 1.2.13
+Running on zlib version : 1.2.13
 Compression algorithms supported : identity("identity"), deflate("deflate"), raw-deflate("deflate"), gzip("gzip")
 Built with transparent proxy support using: IP_TRANSPARENT IPV6_TRANSPARENT IP_FREEBIND
-Built with PCRE2 version : 10.36 2020-12-04
+Built with PCRE2 version : 10.42 2022-12-11
 PCRE2 library supports JIT : yes
 Encrypted password support via crypt(3): yes
-Built with gcc compiler version 12.2.0
+Built with gcc compiler version 12.3.0
 
 Available polling systems :
       epoll : pref=300,  test result OK
@@ -106,7 +105,7 @@ Please refer to [upstream's excellent (and comprehensive) documentation on the s
 ## Create a Dockerfile
 
 ```Dockerfile
-FROM iuridiniz/haproxy:2.7
+FROM iuridiniz/haproxy:2.8
 COPY haproxy.cfg /etc/haproxy/haproxy.cfg
 ```
 
