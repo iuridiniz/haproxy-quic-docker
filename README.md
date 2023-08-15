@@ -167,3 +167,10 @@ See [Announcing HAProxy 2.6
 As with all Docker images, these likely contains many softwares with different licenses along with any direct or indirect dependencies of the primary software being contained.
 
 The HAProxy license could be find [here](https://www.haproxy.org/download/1.3/doc/LICENSE).
+
+# Alternatives
+
+haproxytech images:
+* [haproxytech/haproxy-docker-alpine-quic](https://github.com/haproxytech/haproxy-docker-alpine-quic)
+* [haproxytech/haproxy-docker-ubuntu-quic](https://github.com/haproxytech/haproxy-docker-ubuntu-quic)
+* [haproxytech/haproxy-docker-debian-quic](https://github.com/haproxytech/haproxy-docker-debian-quic)
