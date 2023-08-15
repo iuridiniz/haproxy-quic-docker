@@ -1,6 +1,6 @@
 # Docker image that builds haproxy from source + openssl3 from quictls
 
-FROM gcc:12-bookworm as openssl-quic-builder
+FROM gcc:13-bookworm as openssl-quic-builder
 
 # ignore these default arguments values, they are overridden by the build command with updated values.
 ARG OPENSSL_URL=https://github.com/quictls/openssl/archive/refs/tags/openssl-3.0.10-quic1.tar.gz
@@ -33,7 +33,7 @@ RUN --mount=type=cache,target=/cache \
     cd / && \
     rm -rf /tmp/openssl
 
-FROM gcc:12-bookworm as haproxy-builder
+FROM gcc:13-bookworm as haproxy-builder
 
 # ignore these default arguments values, they are overridden by the build command with updated values.
 ARG HAPROXY_URL=http://www.haproxy.org/download/2.8/src/haproxy-2.8.2.tar.gz
