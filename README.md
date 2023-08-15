@@ -9,7 +9,7 @@ Almost copied from https://hub.docker.com/_/haproxy (DOCKER OFFICIAL IMAGE).
 * Patched OpenSSL 3.X (QUIC APIs) from https://github.com/quictls/openssl (instead of openssl 1.x.y)
 * HAProxy with:
    * QUIC (HTTP/3) enabled
-* Compiled with gcc-12 (instead of gcc-10)
+* Compiled with gcc-13 (instead of gcc-10)
   * `-O3` optimization
 
 ---------------
@@ -117,13 +117,14 @@ $ docker build -t my-haproxy .
 
 ```bash
 $ docker run -it --rm --name haproxy-syntax-check my-haproxy haproxy -c -f /etc/haproxy/haproxy.cfg
-````
+```
 
 ## Run the container
 
 ```bash
 $ docker run -d --name my-running-haproxy --sysctl net.ipv4.ip_unprivileged_port_start=0 my-haproxy
-``` 
+```
+
 You will need a kernel at version 4.11 or newer to use `--sysctl net.ipv4.ip_unprivileged_port_start=0` , you may need to publish the ports your HAProxy is listening on to the host by specifying the `-p`option, for example `-p 8080:80` to publish port 8080 from the container host to port 80 in the container. Make sure the port you're using is free.
 
 **Note**: This containers will run with a unprivileged user named `haproxy` by default (hence the `--sysctl net.ipv4.ip_unprivileged_port_start=0` above). **It's not recommended**, but if you want to run with a different user like `root`, just use `--user root`.
