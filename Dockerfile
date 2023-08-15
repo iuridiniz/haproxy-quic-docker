@@ -1,10 +1,10 @@
 # Docker image that builds haproxy from source + openssl3 from quictls
 
-FROM gcc:12 as openssl-quic-builder
+FROM gcc:12-bookworm as openssl-quic-builder
 
 # ignore these default arguments values, they are overridden by the build command with updated values.
-ARG OPENSSL_URL=https://github.com/quictls/openssl/archive/refs/tags/openssl-3.0.8-quic1.tar.gz
-ARG OPENSSL_SHA1SUM=6503159d79e043ae460730cbb471de5794344e6b
+ARG OPENSSL_URL=https://github.com/quictls/openssl/archive/refs/tags/openssl-3.0.10-quic1.tar.gz
+ARG OPENSSL_SHA1SUM=f82ee600a914f572aa54a9fce1560bc66fad132c
 ARG OPENSSL_OPTS="enable-tls1_3 \
     -g -O3 -fstack-protector-strong -Wformat -Werror=format-security \
     -DOPENSSL_TLS_SECURITY_LEVEL=2 -DOPENSSL_USE_NODELETE -DL_ENDIAN \
@@ -33,11 +33,11 @@ RUN --mount=type=cache,target=/cache \
     cd / && \
     rm -rf /tmp/openssl
 
-FROM gcc:12 as haproxy-builder
+FROM gcc:12-bookworm as haproxy-builder
 
 # ignore these default arguments values, they are overridden by the build command with updated values.
-ARG HAPROXY_URL=http://www.haproxy.org/download/2.7/src/haproxy-2.7.8.tar.gz
-ARG HAPROXY_SHA1SUM=f738f1517a2f3743de1a63b2995dcdf9a97c211a
+ARG HAPROXY_URL=http://www.haproxy.org/download/2.8/src/haproxy-2.8.2.tar.gz
+ARG HAPROXY_SHA1SUM=63fec6a323b70fe4a45dc793a8956d756c13e516
 ARG HAPROXY_CFLAGS="-O3 -g -Wall -Wextra -Wundef -Wdeclaration-after-statement -Wfatal-errors -Wtype-limits -Wshift-negative-value -Wshift-overflow=2 -Wduplicated-cond -Wnull-dereference -fwrapv -Wno-address-of-packed-member -Wno-unused-label -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wno-missing-field-initializers -Wno-cast-function-type -Wno-string-plus-int -Wno-atomic-alignment"
 ARG HAPROXY_LDFLAGS=""
 ARG HAPROXY_OPTS="TARGET=linux-glibc \
@@ -80,12 +80,12 @@ RUN --mount=type=cache,target=/cache \
     cd / && \
     rm -rf /tmp/haproxy
 
-FROM debian:11-slim as haproxy
+FROM debian:12-slim as haproxy
 
 # install dependencies (lua, pcre2)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpcre2-8-0 \
-    libpcre2-posix2 \
+    libpcre2-posix3 \
     liblua5.3-0 \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
