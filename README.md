@@ -46,8 +46,8 @@ Default settings :
   bufsize = 16384, maxrewrite = 1024, maxpollevents = 200
 
 Built with multi-threading support (MAX_TGROUPS=16, MAX_THREADS=256, default=16).
-Built with OpenSSL version : OpenSSL 3.0.12+quic 24 Oct 2023
-Running on OpenSSL version : OpenSSL 3.0.12+quic 24 Oct 2023
+Built with OpenSSL version : OpenSSL 3.1.4+quic 24 Oct 2023
+Running on OpenSSL version : OpenSSL 3.1.4+quic 24 Oct 2023
 OpenSSL library supports TLS extensions : yes
 OpenSSL library supports SNI : yes
 OpenSSL library supports : TLSv1.0 TLSv1.1 TLSv1.2 TLSv1.3
