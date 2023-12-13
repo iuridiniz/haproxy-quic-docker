@@ -5,7 +5,7 @@
 
 Almost copied from https://hub.docker.com/_/haproxy (DOCKER OFFICIAL IMAGE).
 
-# Differences from official image (`haproxy:2.8`)
+# Differences from official image (`haproxy:2.9`)
 * Patched OpenSSL 3.X (QUIC APIs) from https://github.com/quictls/openssl (instead of openssl 1.x.y)
 * HAProxy with:
    * QUIC (HTTP/3) enabled
@@ -26,12 +26,12 @@ Almost copied from https://hub.docker.com/_/haproxy (DOCKER OFFICIAL IMAGE).
 ## `haproxy -vv`
 
 ```
-docker run --rm -it iuridiniz/haproxy:2.8.2 -vv
+docker run --rm -it iuridiniz/haproxy:2.9.0 -vv
 
-HAProxy version 2.8.2-61a0f57 2023/08/09 - https://haproxy.org/
-Status: long-term supported branch - will stop receiving fixes around Q2 2028.
-Known bugs: http://www.haproxy.org/bugs/bugs-2.8.2.html
-Running on: Linux 5.15.0-78-generic #85-Ubuntu SMP Fri Jul 7 15:25:09 UTC 2023 x86_64
+HAProxy version 2.9.0-fddb8c1 2023/12/05 - https://haproxy.org/
+Status: development branch - not safe for use in production.
+Known bugs: http://www.haproxy.org/bugs/bugs-2.9.0.html
+Running on: Linux 5.15.0-89-generic #99-Ubuntu SMP Mon Oct 30 20:42:41 UTC 2023 x86_64
 Build options :
   TARGET  = linux-glibc
   CPU     = generic
@@ -40,14 +40,14 @@ Build options :
   OPTIONS = USE_THREAD=1 USE_LIBCRYPT=1 USE_GETADDRINFO=1 USE_OPENSSL=1 USE_LUA=1 USE_ZLIB= USE_SLZ=1 USE_NS=1 USE_QUIC=1 USE_PROMEX=1 USE_PCRE= USE_PCRE_JIT= USE_PCRE2=1 USE_PCRE2_JIT=1
   DEBUG   = -DDEBUG_STRICT -DDEBUG_MEMORY_POOLS
 
-Feature list : -51DEGREES +ACCEPT4 +BACKTRACE -CLOSEFROM +CPU_AFFINITY +CRYPT_H -DEVICEATLAS +DL -ENGINE +EPOLL -EVPORTS +GETADDRINFO -KQUEUE -LIBATOMIC +LIBCRYPT +LINUX_SPLICE +LINUX_TPROXY +LUA +MATH -MEMORY_PROFILING +NETFILTER +NS -OBSOLETE_LINKER +OPENSSL -OPENSSL_WOLFSSL -OT -PCRE +PCRE2 +PCRE2_JIT -PCRE_JIT +POLL +PRCTL -PROCCTL +PROMEX -PTHREAD_EMULATION +QUIC +RT +SHM_OPEN +SLZ +SSL -STATIC_PCRE -STATIC_PCRE2 -SYSTEMD +TFO +THREAD +THREAD_DUMP +TPROXY -WURFL -ZLIB
+Feature list : -51DEGREES +ACCEPT4 +BACKTRACE -CLOSEFROM +CPU_AFFINITY +CRYPT_H -DEVICEATLAS +DL -ENGINE +EPOLL -EVPORTS +GETADDRINFO -KQUEUE -LIBATOMIC +LIBCRYPT +LINUX_CAP +LINUX_SPLICE +LINUX_TPROXY +LUA +MATH -MEMORY_PROFILING +NETFILTER +NS -OBSOLETE_LINKER +OPENSSL -OPENSSL_AWSLC -OPENSSL_WOLFSSL -OT -PCRE +PCRE2 +PCRE2_JIT -PCRE_JIT +POLL +PRCTL -PROCCTL +PROMEX -PTHREAD_EMULATION +QUIC -QUIC_OPENSSL_COMPAT +RT +SHM_OPEN +SLZ +SSL -STATIC_PCRE -STATIC_PCRE2 -SYSTEMD +TFO +THREAD +THREAD_DUMP +TPROXY -WURFL -ZLIB
 
 Default settings :
   bufsize = 16384, maxrewrite = 1024, maxpollevents = 200
 
 Built with multi-threading support (MAX_TGROUPS=16, MAX_THREADS=256, default=16).
-Built with OpenSSL version : OpenSSL 3.0.10+quic 1 Aug 2023
-Running on OpenSSL version : OpenSSL 3.0.10+quic 1 Aug 2023
+Built with OpenSSL version : OpenSSL 3.0.12+quic 24 Oct 2023
+Running on OpenSSL version : OpenSSL 3.0.12+quic 24 Oct 2023
 OpenSSL library supports TLS extensions : yes
 OpenSSL library supports SNI : yes
 OpenSSL library supports : TLSv1.0 TLSv1.1 TLSv1.2 TLSv1.3
@@ -61,7 +61,7 @@ Built with transparent proxy support using: IP_TRANSPARENT IPV6_TRANSPARENT IP_F
 Built with PCRE2 version : 10.42 2022-12-11
 PCRE2 library supports JIT : yes
 Encrypted password support via crypt(3): yes
-Built with gcc compiler version 12.3.0
+Built with gcc compiler version 13.2.0
 
 Available polling systems :
       epoll : pref=300,  test result OK
@@ -103,7 +103,7 @@ Please refer to [upstream's excellent (and comprehensive) documentation on the s
 ## Create a Dockerfile
 
 ```Dockerfile
-FROM iuridiniz/haproxy:2.8
+FROM iuridiniz/haproxy:2.9
 COPY haproxy.cfg /etc/haproxy/haproxy.cfg
 ```
 
