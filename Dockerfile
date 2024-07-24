@@ -33,7 +33,7 @@ RUN --mount=type=cache,target=/cache \
     cd / && \
     rm -rf /tmp/openssl
 
-FROM gcc:13-bookworm AS haproxy-builder
+FROM gcc:14-bookworm AS haproxy-builder
 
 # ignore these default arguments values, they are overridden by the build command with updated values.
 ARG HAPROXY_URL=https://www.haproxy.org/download/3.0/src/haproxy-3.0.3.tar.gz

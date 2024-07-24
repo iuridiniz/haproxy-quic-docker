@@ -6,10 +6,10 @@
 Almost copied from https://hub.docker.com/_/haproxy (DOCKER OFFICIAL IMAGE).
 
 # Differences from official image (`haproxy:2.9`)
-* Patched OpenSSL 3.X (QUIC APIs) from https://github.com/quictls/openssl (instead of openssl 1.x.y)
+* Patched OpenSSL 3.X (QUIC APIs) from https://github.com/quictls/openssl
 * HAProxy with:
    * QUIC (HTTP/3) enabled
-* Compiled with gcc-13 (instead of gcc-10)
+* Compiled with gcc-14
   * `-O3` optimization
 
 ---------------
@@ -60,7 +60,7 @@ Built with transparent proxy support using: IP_TRANSPARENT IPV6_TRANSPARENT IP_F
 Built with PCRE2 version : 10.42 2022-12-11
 PCRE2 library supports JIT : yes
 Encrypted password support via crypt(3): yes
-Built with gcc compiler version 13.3.0
+Built with gcc compiler version 14.1.0
 
 Available polling systems :
       epoll : pref=300,  test result OK
