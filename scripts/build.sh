@@ -24,8 +24,8 @@ for VERSION in $ENVIRONMENTS; do
     # load overrides
     . "$ENVS_DIR/$VERSION"
 
-    if [ -z "$HAPROXY_URL" ] || [ -z "$HAPROXY_SHA1SUM" ]; then
-        echo "Skipping $VERSION - no HAPROXY_URL or HAPROXY_SHA1SUM"
+    if [ -z "$HAPROXY_URL" ] || [ -z "$HAPROXY_MD5SUM" ]; then
+        echo "Skipping $VERSION - no HAPROXY_URL or HAPROXY_MD5SUM"
         continue
     fi
     (
@@ -35,7 +35,7 @@ for VERSION in $ENVIRONMENTS; do
             --load \
             -t "$IMAGE_NAME:$VERSION" \
             --build-arg HAPROXY_URL="$HAPROXY_URL" \
-            --build-arg HAPROXY_SHA1SUM="$HAPROXY_SHA1SUM" \
+            --build-arg HAPROXY_MD5SUM="$HAPROXY_MD5SUM" \
             --build-arg HAPROXY_CFLAGS="$HAPROXY_CFLAGS" \
             --build-arg HAPROXY_LDFLAGS="$HAPROXY_LDFLAGS" \
             --build-arg OPENSSL_URL="$OPENSSL_URL" \

@@ -1,10 +1,10 @@
 # Docker image that builds haproxy from source + openssl3 from quictls
 
-FROM gcc:13-bookworm as openssl-quic-builder
+FROM gcc:13-bookworm AS openssl-quic-builder
 
 # ignore these default arguments values, they are overridden by the build command with updated values.
-ARG OPENSSL_URL=https://github.com/quictls/openssl/archive/refs/tags/openssl-3.1.4-quic1.tar.gz
-ARG OPENSSL_SHA1SUM=580edc83a0de1c1ecd8a9391a43cf8faceb1e757
+ARG OPENSSL_URL="https://github.com/quictls/openssl/archive/refs/tags/opernssl-3.1.5-quic1.tar.gz"
+ARG OPENSSL_SHA1SUM="20b4d9a2428d3cffcc913651965d60400ee7e804"
 ARG OPENSSL_OPTS="enable-tls1_3 \
     -g -O3 -fstack-protector-strong -Wformat -Werror=format-security \
     -DOPENSSL_TLS_SECURITY_LEVEL=2 -DOPENSSL_USE_NODELETE -DL_ENDIAN \
@@ -33,11 +33,11 @@ RUN --mount=type=cache,target=/cache \
     cd / && \
     rm -rf /tmp/openssl
 
-FROM gcc:13-bookworm as haproxy-builder
+FROM gcc:13-bookworm AS haproxy-builder
 
 # ignore these default arguments values, they are overridden by the build command with updated values.
-ARG HAPROXY_URL=http://www.haproxy.org/download/2.9/src/haproxy-2.9.0.tar.gz
-ARG HAPROXY_SHA1SUM=ef8b6efa3a1b8ba6396b55c837e10cf4c7f00020
+ARG HAPROXY_URL=https://www.haproxy.org/download/3.0/src/haproxy-3.0.3.tar.gz
+ARG HAPROXY_MD5SUM=6a2a481422645464a50b9879743bbbbc
 ARG HAPROXY_CFLAGS="-O3 -g -Wall -Wextra -Wundef -Wdeclaration-after-statement -Wfatal-errors -Wtype-limits -Wshift-negative-value -Wshift-overflow=2 -Wduplicated-cond -Wnull-dereference -fwrapv -Wno-address-of-packed-member -Wno-unused-label -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wno-missing-field-initializers -Wno-cast-function-type -Wno-string-plus-int -Wno-atomic-alignment"
 ARG HAPROXY_LDFLAGS=""
 ARG HAPROXY_OPTS="TARGET=linux-glibc \
@@ -69,9 +69,9 @@ RUN \
 RUN --mount=type=cache,target=/cache \
     mkdir -p /tmp/haproxy /cache && \
     cd /tmp/haproxy && \
-    wget -c $HAPROXY_URL -O /cache/haproxy-$HAPROXY_SHA1SUM.tar.gz && \
-    echo "$HAPROXY_SHA1SUM  /cache/haproxy-$HAPROXY_SHA1SUM.tar.gz" | sha1sum -c - || (rm -f /cache/haproxy-$HAPROXY_SHA1SUM.tar.gz && exit 1) && \
-    tar -xzf /cache/haproxy-$HAPROXY_SHA1SUM.tar.gz && \
+    wget -c $HAPROXY_URL -O /cache/haproxy-$HAPROXY_MD5SUM.tar.gz && \
+    echo "$HAPROXY_MD5SUM  /cache/haproxy-$HAPROXY_MD5SUM.tar.gz" | md5sum -c - || (rm -f /cache/haproxy-$HAPROXY_MD5SUM.tar.gz && exit 1) && \
+    tar -xzf /cache/haproxy-$HAPROXY_MD5SUM.tar.gz && \
     cd haproxy-* && \
     make -j $(nproc) $HAPROXY_OPTS CFLAGS="$HAPROXY_CFLAGS" LDFLAGS="$HAPROXY_LDFLAGS" SSL_INC=/opt/quictls/include SSL_LIB=/opt/quictls/lib all admin/halog/halog && \
     make -j $(nproc) install-bin  && \
@@ -80,7 +80,7 @@ RUN --mount=type=cache,target=/cache \
     cd / && \
     rm -rf /tmp/haproxy
 
-FROM debian:12-slim as haproxy
+FROM debian:12-slim AS haproxy
 
 # install dependencies (lua, pcre2)
 RUN apt-get update && apt-get install -y --no-install-recommends \

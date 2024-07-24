@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # LIST: https://github.com/quictls/openssl/releases
-OPENSSL_URL="https://github.com/quictls/openssl/archive/refs/tags/openssl-3.1.4-quic1.tar.gz"
-OPENSSL_SHA1SUM="580edc83a0de1c1ecd8a9391a43cf8faceb1e757"
+OPENSSL_URL="https://github.com/quictls/openssl/archive/refs/tags/opernssl-3.1.5-quic1.tar.gz"
+OPENSSL_SHA1SUM="20b4d9a2428d3cffcc913651965d60400ee7e804"
 OPENSSL_OPTS="enable-tls1_3 \
     -g -O3 -fstack-protector-strong -Wformat -Werror=format-security \
     -DOPENSSL_TLS_SECURITY_LEVEL=2 -DOPENSSL_USE_NODELETE -DL_ENDIAN \
@@ -29,6 +29,6 @@ HAPROXY_OPTS="TARGET=linux-glibc \
     USE_SLZ=1 USE_ZLIB= \
     "
 
-# unset haproxy url and sha1sum
+# unset haproxy url and md5sum
 HAPROXY_URL=
-HAPROXY_SHA1SUM=
+HAPROXY_MD51SUM=

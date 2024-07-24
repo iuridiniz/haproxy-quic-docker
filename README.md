@@ -26,28 +26,27 @@ Almost copied from https://hub.docker.com/_/haproxy (DOCKER OFFICIAL IMAGE).
 ## `haproxy -vv`
 
 ```
-docker run --rm -it iuridiniz/haproxy:2.9.0 -vv
+docker run --rm -it iuridiniz/haproxy:3.0 -vv
 
-HAProxy version 2.9.0-fddb8c1 2023/12/05 - https://haproxy.org/
-Status: development branch - not safe for use in production.
-Known bugs: http://www.haproxy.org/bugs/bugs-2.9.0.html
-Running on: Linux 5.15.0-89-generic #99-Ubuntu SMP Mon Oct 30 20:42:41 UTC 2023 x86_64
+HAProxy version 3.0.3-95a607c 2024/07/11 - https://haproxy.org/
+Status: long-term supported branch - will stop receiving fixes around Q2 2029.
+Known bugs: http://www.haproxy.org/bugs/bugs-3.0.3.html
+Running on: Linux 5.15.0-116-generic #126-Ubuntu SMP Mon Jul 1 10:14:24 UTC 2024 x86_64
 Build options :
   TARGET  = linux-glibc
-  CPU     = generic
   CC      = cc
-  CFLAGS  = -O3 -g -Wall -Wextra -Wundef -Wdeclaration-after-statement -Wfatal-errors -Wtype-limits -Wshift-negative-value -Wshift-overflow=2 -Wduplicated-cond -Wnull-dereference -fwrapv -Wno-address-of-packed-member -Wno-unused-label -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wno-missing-field-initializers -Wno-cast-function-type -Wno-string-plus-int -Wno-atomic-alignment
+  CFLAGS  = -O2 -g -fwrapv -O3 -g -Wall -Wextra -Wundef -Wdeclaration-after-statement -Wfatal-errors -Wtype-limits -Wshift-negative-value -Wshift-overflow=2 -Wduplicated-cond -Wnull-dereference -fwrapv -Wno-address-of-packed-member -Wno-unused-label -Wno-sign-compare -Wno-unused-parameter -Wno-clobbered -Wno-missing-field-initializers -Wno-cast-function-type -Wno-string-plus-int -Wno-atomic-alignment
   OPTIONS = USE_THREAD=1 USE_LIBCRYPT=1 USE_GETADDRINFO=1 USE_OPENSSL=1 USE_LUA=1 USE_ZLIB= USE_SLZ=1 USE_NS=1 USE_QUIC=1 USE_PROMEX=1 USE_PCRE= USE_PCRE_JIT= USE_PCRE2=1 USE_PCRE2_JIT=1
-  DEBUG   = -DDEBUG_STRICT -DDEBUG_MEMORY_POOLS
+  DEBUG   = 
 
-Feature list : -51DEGREES +ACCEPT4 +BACKTRACE -CLOSEFROM +CPU_AFFINITY +CRYPT_H -DEVICEATLAS +DL -ENGINE +EPOLL -EVPORTS +GETADDRINFO -KQUEUE -LIBATOMIC +LIBCRYPT +LINUX_CAP +LINUX_SPLICE +LINUX_TPROXY +LUA +MATH -MEMORY_PROFILING +NETFILTER +NS -OBSOLETE_LINKER +OPENSSL -OPENSSL_AWSLC -OPENSSL_WOLFSSL -OT -PCRE +PCRE2 +PCRE2_JIT -PCRE_JIT +POLL +PRCTL -PROCCTL +PROMEX -PTHREAD_EMULATION +QUIC -QUIC_OPENSSL_COMPAT +RT +SHM_OPEN +SLZ +SSL -STATIC_PCRE -STATIC_PCRE2 -SYSTEMD +TFO +THREAD +THREAD_DUMP +TPROXY -WURFL -ZLIB
+Feature list : -51DEGREES +ACCEPT4 +BACKTRACE -CLOSEFROM +CPU_AFFINITY +CRYPT_H -DEVICEATLAS +DL -ENGINE +EPOLL -EVPORTS +GETADDRINFO -KQUEUE -LIBATOMIC +LIBCRYPT +LINUX_CAP +LINUX_SPLICE +LINUX_TPROXY +LUA +MATH -MEMORY_PROFILING +NETFILTER +NS -OBSOLETE_LINKER +OPENSSL -OPENSSL_AWSLC -OPENSSL_WOLFSSL -OT -PCRE +PCRE2 +PCRE2_JIT -PCRE_JIT +POLL +PRCTL -PROCCTL +PROMEX -PTHREAD_EMULATION +QUIC -QUIC_OPENSSL_COMPAT +RT +SHM_OPEN +SLZ +SSL -STATIC_PCRE -STATIC_PCRE2 +SYSTEMD +TFO +THREAD +THREAD_DUMP +TPROXY -WURFL -ZLIB
 
 Default settings :
   bufsize = 16384, maxrewrite = 1024, maxpollevents = 200
 
 Built with multi-threading support (MAX_TGROUPS=16, MAX_THREADS=256, default=16).
-Built with OpenSSL version : OpenSSL 3.1.4+quic 24 Oct 2023
-Running on OpenSSL version : OpenSSL 3.1.4+quic 24 Oct 2023
+Built with OpenSSL version : OpenSSL 3.1.5+quic 30 Jan 2024
+Running on OpenSSL version : OpenSSL 3.1.5+quic 30 Jan 2024
 OpenSSL library supports TLS extensions : yes
 OpenSSL library supports SNI : yes
 OpenSSL library supports : TLSv1.0 TLSv1.1 TLSv1.2 TLSv1.3
@@ -61,7 +60,7 @@ Built with transparent proxy support using: IP_TRANSPARENT IPV6_TRANSPARENT IP_F
 Built with PCRE2 version : 10.42 2022-12-11
 PCRE2 library supports JIT : yes
 Encrypted password support via crypt(3): yes
-Built with gcc compiler version 13.2.0
+Built with gcc compiler version 13.3.0
 
 Available polling systems :
       epoll : pref=300,  test result OK
@@ -73,9 +72,9 @@ Available multiplexer protocols :
 (protocols marked as <default> cannot be specified using 'proto' keyword)
        quic : mode=HTTP  side=FE     mux=QUIC  flags=HTX|NO_UPG|FRAMED
          h2 : mode=HTTP  side=FE|BE  mux=H2    flags=HTX|HOL_RISK|NO_UPG
-       fcgi : mode=HTTP  side=BE     mux=FCGI  flags=HTX|HOL_RISK|NO_UPG
   <default> : mode=HTTP  side=FE|BE  mux=H1    flags=HTX
          h1 : mode=HTTP  side=FE|BE  mux=H1    flags=HTX|NO_UPG
+       fcgi : mode=HTTP  side=BE     mux=FCGI  flags=HTX|HOL_RISK|NO_UPG
   <default> : mode=TCP   side=FE|BE  mux=PASS  flags=
        none : mode=TCP   side=FE|BE  mux=PASS  flags=NO_UPG
 
