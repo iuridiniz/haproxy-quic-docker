@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # LIST: https://github.com/quictls/openssl/releases
-OPENSSL_URL="https://github.com/quictls/openssl/archive/refs/tags/opernssl-3.1.5-quic1.tar.gz"
-OPENSSL_SHA1SUM="20b4d9a2428d3cffcc913651965d60400ee7e804"
+OPENSSL_URL="https://github.com/quictls/openssl/archive/refs/tags/openssl-3.1.7-quic1.tar.gz"
+OPENSSL_SHA1SUM="a2ed38883bc7a2e01dbd92ccb202e344d675bfaf"
 OPENSSL_OPTS="enable-tls1_3 \
     -g -O3 -fstack-protector-strong -Wformat -Werror=format-security \
     -DOPENSSL_TLS_SECURITY_LEVEL=2 -DOPENSSL_USE_NODELETE -DL_ENDIAN \
