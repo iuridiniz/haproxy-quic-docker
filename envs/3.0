@@ -1,5 +1,5 @@
 #!/bin/bash
 
 # list: http://www.haproxy.org/download/3.0/src/
-HAPROXY_URL=https://www.haproxy.org/download/3.0/src/haproxy-3.0.3.tar.gz
-HAPROXY_MD5SUM=6a2a481422645464a50b9879743bbbbc
+HAPROXY_URL=https://www.haproxy.org/download/3.0/src/haproxy-3.0.5.tar.gz
+HAPROXY_MD5SUM=afe05e15455aa6aa190fa39d160b1c33
